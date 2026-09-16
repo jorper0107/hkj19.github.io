@@ -9,14 +9,14 @@
 <body>
   <div id="body-container">
     <div id="header">
-      <h1>Hello, my name is Jordan Perez!</h1>
+      <h1>Hello, welcome <script src="javascript/external.js"></script> !</h1>
     </div>
     <div id="profile-picture">
       <img src=images/profile-picture.jpg width=500px height=500px />
     </div>
     <div id="welcome-text">
       <p>
-        Welcome to my webpage. <br>
+        My name is Jordan Perez. <br>
         I am a student in the
         <a href="https://www.geo.txst.edu/" target="_blank">Geography Department</a> at
         <a href="https://www.txst.edu/" target="_blank"> Texas State University.</a>
@@ -31,7 +31,16 @@
           <li>Business Development</li>
         </ol>
       </p>
-      <script src="javascript/external.js"></script>
+    </div>
+    <div id="copyright">
+      <script>
+// New script to track what time and date someone accessed the website.
+        var today = new Date();
+// Day of access.
+        var year = today.getFullYear();
+// Year of access.
+      document.writeln("Copyright &copy; " + year);
+      </script>
     </div>
   </div>
 </body>
