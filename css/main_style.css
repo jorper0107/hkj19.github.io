@@ -62,4 +62,12 @@ transform: translateX(-50%) translateY(-50%);
 text-align: left;
 font-size: 25px;
 position: relative;
+margin-top: 30px;
+margin-bottom: 30px;
+}
+
+#webmap-reviews table {
+width: 100%;
+border-collapse: collapse;
+font-size: 16px;
 }
