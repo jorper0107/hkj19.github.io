@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name = "viewport" content = "width=device-width, initial-scale=1.0" />
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.1/dist/leaflet.css"
-  integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="">
+integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="">
 <link rel="stylesheet" type="text/css" href="css/map_style.css">
 <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js" integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css">
 <script src="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js"></script>
-<script src="https://unpkg.com/leaflet-controlgeocoder/dist/Control.Geocoder.js"></script>
-<link rel="stylesheet" href="https://unpkg.com/leaflet-controlgeocoder/dist/Control.Geocoder.css" />
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 <script src="javascript/secret_keys.js"></script>
   <title>Jordan Perez</title>
   <!-- All styling for this HTML document are contained in this external css
@@ -60,66 +60,67 @@
     </p>
 </div>
 <h3>Geocoding Map</h3>
-<br>
-  <div id="mapid" style="width: 600px; height: 400px; margin: auto; bottom: 30px;">
-    <script>
-    var mymap = L.map('mapid');
-//L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {maxZoom: 18, id: 'mapbox/dark-v10',accessToken: mapbox_access_token}).addTo(mymap);
-L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {}).addTo(mymap);
-var geocoder = L.Control.geocoder({
-  defaultMarkGeocode: false,
-  geocoder: new L.Control.Geocoder.Nominatim()
-}).on('markgeocode', function(e) {
-  var bbox = e.geocode.bbox;
-  var poly = L.polygon([
-  bbox.getSouthEast(),
-  bbox.getNorthEast(),
-  bbox.getNorthWest(),
-  bbox.getSouthWest()
-  ]);
-  mymap.fitBounds(poly.getBounds());
-  }).addTo(mymap);
+     <br>
+     <div id="mapid" style="width: 600px; height: 400px; margin: auto; bottom: 30px;">
+       <script>
+       var mymap = L.map('mapid');
+       // L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {maxZoom: 18, id: 'mapbox/dark-v10',
+       // accessToken: mapbox_access_token}).addTo(mymap);
+       L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {}).addTo(mymap);
+       var geocoder = L.Control.geocoder({
+       defaultMarkGeocode: false,
+       geocoder: new L.Control.Geocoder.Nominatim()
+       }).on('markgeocode', function(e) {
+       var bbox = e.geocode.bbox;
+       var poly = L.polygon([
+       bbox.getSouthEast(),
+       bbox.getNorthEast(),
+       bbox.getNorthWest(),
+       bbox.getSouthWest()
+       ]);
+       mymap.fitBounds(poly.getBounds());
+       }).addTo(mymap);
 
 var tajIcon = L.divIcon({
     html: '🕌',
     className: 'wonder-icon',
-    iconSize: [40, 40]
+    iconSize: [60, 60]
     });
 
 var wallIcon = L.divIcon({
-      html: '🧱',
+      html: '👲',
       className: 'wonder-icon',
-      iconSize: [40, 40]
+      iconSize: [60, 60]
     });
 
 var petraIcon = L.divIcon({
       html: '🏛️',
       className: 'wonder-icon',
-      iconSize: [40, 40]
+      iconSize: [60, 60]
     });
 
 var christIcon = L.divIcon({
       html: '✝️',
       className: 'wonder-icon',
-      iconSize: [40, 40]
+      iconSize: [60, 60]
     });
 
 var machuIcon = L.divIcon({
       html: '⛰️',
       className: 'wonder-icon',
-      iconSize: [40, 40]
+      iconSize: [60, 60]
     });
 
 var chichenIcon = L.divIcon({
-      html: '🔺',
+      html: '🪨',
       className: 'wonder-icon',
-      iconSize: [40, 40]
+      iconSize: [60, 60]
     });
 
 var colosseumIcon = L.divIcon({
       html: '🏟️',
       className: 'wonder-icon',
-      iconSize: [40, 40]
+      iconSize: [60, 60]
     });
 
 var taj = L.marker([27.174961, 78.042385], {
@@ -164,25 +165,25 @@ var colosseum = L.marker([41.890169, 12.492269], {
 
   petra.bindPopup(
       "<b>Petra in Jordan</b><br>" +
-      "<img src='images/petra-jordan.jpeg' width='200'><br>" +
+      "<img src='images/petra.jpg' width='200'><br>" +
       "Petra is a famous archaeological site in Jordan's southwestern desert. It contains tombs and temples carved into pink sandstone cliffs."
     );
 
   christ.bindPopup(
       "<b>Brazil's Statue of Christ the Redeemer</b><br>" +
-      "<img src='images/christ-redeemer.jpg' width='200'><br>" +
+      "<img src='images/christ.jpg' width='200'><br>" +
       "Christ the Redeemer is a colossal Art Deco statue of Jesus Christ located at the peak of Mount Corcovado in Rio de Janeiro, Brazil."
     );
 
   machu.bindPopup(
       "<b>Peru's Machu Picchu</b><br>" +
-      "<img src='images/Machu-picchu.jpg' width='200'><br>" +
+      "<img src='images/machu.jpg' width='200'><br>" +
       "Machu Picchu is an Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. It’s renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views. Its exact former use remains a mystery."
     );
 
   chichen.bindPopup(
       "<b>Mexico's Chichen Itza</b><br>" +
-      "<img src='images/Chichen-Itza.jpg' width='200'><br>" +
+      "<img src='images/chichen.jpg' width='200'><br>" +
       "Chichén Itzá is a complex of Mayan ruins on Mexico's Yucatán Peninsula. A massive step pyramid, known as El Castillo or Temple of Kukulcan, dominates the ancient city, which thrived from around 600 A.D. to the 1200s."
     );
 
