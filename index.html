@@ -9,6 +9,8 @@
 <script src="https://unpkg.com/leaflet@1.9.1/dist/leaflet.js" integrity="sha256-NDI0K41gVbWqfkkaHj15IzU7PtMoelkzyKp8TOaFQ3s=" crossorigin=""></script>
 <link rel="stylesheet" href="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.css">
 <script src="https://api.mapbox.com/mapbox.js/v3.3.1/mapbox.js"></script>
+<script src="https://unpkg.com/leaflet-controlgeocoder/dist/Control.Geocoder.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet-controlgeocoder/dist/Control.Geocoder.css" />
 <script src="javascript/secret_keys.js"></script>
   <title>Jordan Perez</title>
   <!-- All styling for this HTML document are contained in this external css
@@ -64,28 +66,153 @@
     var mymap = L.map('mapid');
 //L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {maxZoom: 18, id: 'mapbox/dark-v10',accessToken: mapbox_access_token}).addTo(mymap);
 L.tileLayer('https://tile.openstreetmap.de/{z}/{x}/{y}.png', {}).addTo(mymap);
-  var marker = L.marker([51.5, -0.09]).addTo(mymap);
-  var circle = L.circle([51.508, -0.11], { color: 'red', fillColor: '#f03',
-  fillOpacity: 0.5, radius: 500}).addTo(mymap);
-  var polygon = L.polygon([[51.509, -0.08], [51.503, -0.06], [51.51, -0.047]]).addTo(mymap);
-  marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-  circle.bindPopup("I am a circle.");
-  polygon.bindPopup("I am a polygon.");
-  marker.on('click', function(e){ mymap.setView(e.latlng, 14);})
-  circle.on('click', function(e){ mymap.setView(e.latlng, 13);})
-  polygon.on('click', function(e){ mymap.setView(e.latlng, 13);})
-  var ZoomViewer = L.Control.extend({ onAdd: function(){
-  var gauge = L.DomUtil.create('div');
-  gauge.style.width = '200px';
-  gauge.style.background = 'rgba(255,255,255,0.5)';
-  gauge.style.textAlign = 'left';
-    mymap.on('zoomstart zoom zoomend', function(ev){
-gauge.innerHTML = 'Zoom level: ' + mymap.getZoom();
-})
-return gauge;
-}
-});
-(new ZoomViewer).addTo(mymap);
+var geocoder = L.Control.geocoder({
+  defaultMarkGeocode: false,
+  geocoder: new L.Control.Geocoder.Nominatim()
+}).on('markgeocode', function(e) {
+  var bbox = e.geocode.bbox;
+  var poly = L.polygon([
+  bbox.getSouthEast(),
+  bbox.getNorthEast(),
+  bbox.getNorthWest(),
+  bbox.getSouthWest()
+  ]);
+  mymap.fitBounds(poly.getBounds());
+  }).addTo(mymap);
+
+var tajIcon = L.divIcon({
+    html: '🕌',
+    className: 'wonder-icon',
+    iconSize: [40, 40]
+    });
+
+var wallIcon = L.divIcon({
+      html: '🧱',
+      className: 'wonder-icon',
+      iconSize: [40, 40]
+    });
+
+var petraIcon = L.divIcon({
+      html: '🏛️',
+      className: 'wonder-icon',
+      iconSize: [40, 40]
+    });
+
+var christIcon = L.divIcon({
+      html: '✝️',
+      className: 'wonder-icon',
+      iconSize: [40, 40]
+    });
+
+var machuIcon = L.divIcon({
+      html: '⛰️',
+      className: 'wonder-icon',
+      iconSize: [40, 40]
+    });
+
+var chichenIcon = L.divIcon({
+      html: '🔺',
+      className: 'wonder-icon',
+      iconSize: [40, 40]
+    });
+
+var colosseumIcon = L.divIcon({
+      html: '🏟️',
+      className: 'wonder-icon',
+      iconSize: [40, 40]
+    });
+
+var taj = L.marker([27.174961, 78.042385], {
+      icon: tajIcon
+    }).addTo(mymap);
+
+var wall = L.marker([40.343245, 116.477652], {
+      icon: wallIcon
+    }).addTo(mymap);
+
+var petra = L.marker([30.328611, 35.441944], {
+      icon: petraIcon
+    }).addTo(mymap);
+
+var christ = L.marker([-22.951389, -43.210834], {
+      icon: christIcon
+    }).addTo(mymap);
+
+var machu = L.marker([-13.163056, -72.545556], {
+      icon: machuIcon
+    }).addTo(mymap);
+
+var chichen = L.marker([20.682778, -88.569167], {
+      icon: chichenIcon
+    }).addTo(mymap);
+
+var colosseum = L.marker([41.890169, 12.492269], {
+      icon: colosseumIcon
+    }).addTo(mymap);
+
+  taj.bindPopup(
+      "<b>India's Taj Mahal</b><br>" +
+      "<img src='images/tajmahal.jpg' width='200'><br>" +
+      "The Taj Mahal is a famous white marble mausoleum located in Agra, India. It was commissioned by the fifth Mughal emperor, Shah Jahan, in 1631. It was built to house the tomb of his favorite wife, Mumtaz Mahal; it now also holds Shah Jahan's own tomb."
+    );
+
+  wall.bindPopup(
+      "<b>Great Wall of China</b><br>" +
+      "<img src='images/great-wall.jpg' width='200'><br>" +
+      "The Great Wall of China is a series of fortifications in China. They were built across the historical northern borders of ancient Chinese states and Imperial China as protection against various nomadic groups from the Eurasian Steppe."
+    );
+
+  petra.bindPopup(
+      "<b>Petra in Jordan</b><br>" +
+      "<img src='images/petra-jordan.jpeg' width='200'><br>" +
+      "Petra is a famous archaeological site in Jordan's southwestern desert. It contains tombs and temples carved into pink sandstone cliffs."
+    );
+
+  christ.bindPopup(
+      "<b>Brazil's Statue of Christ the Redeemer</b><br>" +
+      "<img src='images/christ-redeemer.jpg' width='200'><br>" +
+      "Christ the Redeemer is a colossal Art Deco statue of Jesus Christ located at the peak of Mount Corcovado in Rio de Janeiro, Brazil."
+    );
+
+  machu.bindPopup(
+      "<b>Peru's Machu Picchu</b><br>" +
+      "<img src='images/Machu-picchu.jpg' width='200'><br>" +
+      "Machu Picchu is an Incan citadel set high in the Andes Mountains in Peru, above the Urubamba River valley. It’s renowned for its sophisticated dry-stone walls that fuse huge blocks without the use of mortar, intriguing buildings that play on astronomical alignments and panoramic views. Its exact former use remains a mystery."
+    );
+
+  chichen.bindPopup(
+      "<b>Mexico's Chichen Itza</b><br>" +
+      "<img src='images/Chichen-Itza.jpg' width='200'><br>" +
+      "Chichén Itzá is a complex of Mayan ruins on Mexico's Yucatán Peninsula. A massive step pyramid, known as El Castillo or Temple of Kukulcan, dominates the ancient city, which thrived from around 600 A.D. to the 1200s."
+    );
+
+  colosseum.bindPopup(
+      "<b>The Colosseum in Rome</b><br>" +
+      "<img src='images/colosseum.jpg' width='200'><br>" +
+      "The Colosseum is an elliptical amphitheatre in the centre of the city of Rome, Italy. It is the largest ancient amphitheatre ever built, and is the largest standing amphitheatre in the world."
+    );
+//var marker = L.marker([51.5, -0.09]).addTo(mymap);
+//  var circle = L.circle([51.508, -0.11], { color: 'red', fillColor: '#f03',
+//  fillOpacity: 0.5, radius: 500}).addTo(mymap);
+//  var polygon = L.polygon([[51.509, -0.08], [51.503, -0.06], [51.51, -0.047]]).addTo(mymap);
+//  var polyline = L.polyline([[51.506, -0.08], [51.502, -0.06], [51.507, -0.047]]).addTo(mymap);
+//  marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
+//  circle.bindPopup("I am a circle.");
+//  polygon.bindPopup("I am a polygon.");
+//  marker.on('click', function(e){ mymap.setView(e.latlng, 14);})
+//  circle.on('click', function(e){ mymap.setView(e.latlng, 13);})
+//  polygon.on('click', function(e){ mymap.setView(e.latlng, 13);})
+//  var ZoomViewer = L.Control.extend({ onAdd: function(){
+//  var gauge = L.DomUtil.create('div');
+//  gauge.style.width = '200px';
+//  gauge.style.background = 'rgba(255,255,255,0.5)';
+//  gauge.style.textAlign = 'left';
+//    mymap.on('zoomstart zoom zoomend', function(ev){
+//gauge.innerHTML = 'Zoom level: ' + mymap.getZoom();
+//})
+//return gauge;
+//}
+//(new ZoomViewer).addTo(mymap);
 mymap.setView([0,0], 1);
     </script>
 </div>

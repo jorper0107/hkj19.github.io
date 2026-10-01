@@ -1,1 +1,1 @@
-mapbox_access_token='pk.eyJ1IjoiaGtqMTkiLCJhIjoiY211bTU1c21xMDM1djJ4cHAwZTZ0bXk2MSJ9.QynYpGoVIl1L_c9Ke3sWVg'
+mapbox_access_token = "pk.eyJ1IjoiaGtqMTkiLCJhIjoiY211bTU1c21xMDM1djJ4cHAwZTZ0bXk2MSJ9.QynYpGoVIl1L_c9Ke3sWVg"
