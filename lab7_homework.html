@@ -1,0 +1,23 @@
+<html>
+<head>
+<h2>Web Mapping Lab 7 Perez</h2>
+
+<label for="labMenu">Choose a lab task:</label>
+
+<select id="labMenu" onchange="openLabPage(this.value)">
+  <option value="">-- Select a lab task --</option>
+  <option value="simple_mapping.html">Task 1: Simple Mapping</option>
+  <option value="tile_layer.html">Task 2: Tile Layers</option>
+  <option value="dynamic_layers.html">Task 2: Dynamic Layers</option>
+  <option value="on_event.html">Task 3: View on Event</option>
+  <option value="basemap_gallery.html">Task 4: Basemap Gallery</option>
+  <option value="query_task.html">Task 5: Query Task</option>
+</select>
+
+<script>
+  function openLabPage(page) {
+    if (page !== "") {
+      window.open(page, "_blank");
+    }
+  }
+</script>
