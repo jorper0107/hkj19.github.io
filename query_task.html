@@ -11,7 +11,7 @@
       padding: 0;
       margin: 0;
       height: 100%;
-      width: 100%;}
+      width: 100%;
     }
     html, body, #viewDiv {
       padding: 0;
@@ -19,16 +19,20 @@
       height: 100%;
       width: 100%;
     }
-    #optionsDiv{
+
+    #optionsDiv {
       background-color: dimgray;
       color: white;
       padding: 10px;
       width: 350px;
+      max-width: calc(100% - 40px);
     }
+
     .esri-popup .esri-popup-header .esri-title {
       font-size: 18px;
       font-weight: bolder;
     }
+
     .esri-popup .esri-popup-body .esri-popup-content {
       font-size: 14px;
     }
@@ -136,12 +140,13 @@
           }
         }
       ],
-      content: "<b>Population:" + "</b> {Population} " + "<br><b>Households:</b> {Household}" + "<br><b>Latitude:</b>
-      {Latitude}" + "<br><b>Longitude:</b> {Longitude}"
+      content: "<b>Population:</b> {Population}<br><b>Households:</b> {Household}<br><b>Latitude:</b> {Latitude}<br><b>Longitude:</b> {Longitude}"
     };
     var resultsLayer = new GraphicsLayer();
+    map.add(resultsLayer);
     var qTask = new QueryTask({ url: popUrl });
     var params = new Query({ returnGeometry: true, outFields: ["*"] });
+  });
   </script>
 </head>
 <body>
